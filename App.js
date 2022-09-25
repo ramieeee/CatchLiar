@@ -1,11 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, useColorScheme, View } from 'react-native';
 
+import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+const Stack = createNativeStackNavigator();
 
 //pages
 import LoadingScreen from './screens/LoadingScreen';
+import LandingScreen from './screens/LandingScreen';
 
 import {
   Colors,
@@ -17,9 +20,7 @@ import {
 
 const styles = StyleSheet.create({
   view: {
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#191F2D',
+    backgroundColor: '#20262B',
   },
   textHead: {
     fontSize: 18,
@@ -32,15 +33,26 @@ const styles = StyleSheet.create({
   },
 });
 
-const Stack = createNativeStackNavigator();
-
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="hello" component={LoadingScreen} />
+        <Stack.Screen
+          name="LoadingScreen"
+          component={LoadingScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="LandingScreen"
+          component={LandingScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
