@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import {
   StyleSheet,
   Text,
-  useColorScheme,
   View,
   Pressable,
+  TouchableHighlight,
 } from 'react-native';
 
 export default function LandingScreen({ navigation }) {
@@ -15,12 +15,17 @@ export default function LandingScreen({ navigation }) {
       alignItems: 'center',
       justifyContent: 'center',
     },
-    textContainter: {
-      flex: 1,
-      flexDirection: 'row',
+    containerUpp: {
       alignItems: 'center',
-      width: 140,
+      justifyContent: 'center',
+      height: '30%',
+      backgroundColor: 'pink',
+    },
+    containerMid: {
+      alignItems: 'center',
       justifyContent: 'space-between',
+      height: '40%',
+      backgroundColor: 'blue',
     },
     textHeader: {
       color: 'white',
@@ -30,6 +35,14 @@ export default function LandingScreen({ navigation }) {
       color: 'white',
       fontSize: 18,
     },
+    midBtns: {
+      width: 290,
+      height: 46,
+      borderRadius: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    midBtnsOnPress: '#DDDDDD',
     bottomBtn: {
       backgroundColor: '#42595F',
       width: 290,
@@ -41,17 +54,43 @@ export default function LandingScreen({ navigation }) {
   });
   return (
     <View style={styles.background}>
-      <View>
-        <Text style={styles.textHeader}>Welcome</Text>
-        <Text style={styles.plainText}>How to play</Text>
-        <Text style={styles.plainText}>Patch Note</Text>
-        <Text style={styles.plainText}>Who Made It</Text>
+      <View style={styles.containerUpp}>
+        <TouchableHighlight
+          underlayColor={styles.midBtnsOnPress}
+          style={styles.midBtns}
+          onPress={() => console.log('hi')}>
+          <Text style={styles.textHeader}>Welcome</Text>
+        </TouchableHighlight>
       </View>
-      <Pressable onPress={() => navigation.navigate('SetPlayerScreen')}>
-        <View style={styles.bottomBtn}>
-          <Text style={styles.plainText}>Play</Text>
-        </View>
-      </Pressable>
+
+      <View style={styles.containerMid}>
+        <TouchableHighlight
+          underlayColor={styles.midBtnsOnPress}
+          style={styles.midBtns}
+          onPress={() => console.log('hi')}>
+          <Text style={styles.plainText}>How to play</Text>
+        </TouchableHighlight>
+        <TouchableHighlight
+          underlayColor={styles.midBtnsOnPress}
+          style={styles.midBtns}
+          onPress={() => console.log('hi')}>
+          <Text style={styles.plainText}>Patch Note</Text>
+        </TouchableHighlight>
+        <TouchableHighlight
+          underlayColor={styles.midBtnsOnPress}
+          style={styles.midBtns}
+          onPress={() => console.log('hi')}>
+          <Text style={styles.plainText}>Settings</Text>
+        </TouchableHighlight>
+      </View>
+
+      <TouchableHighlight
+        // onPress={() => navigation.navigate('SetPlayerScreen')}
+        underlayColor={styles.midBtnsOnPress}
+        onPress={() => console.log('hi')}
+        style={styles.bottomBtn}>
+        <Text style={styles.plainText}>Play</Text>
+      </TouchableHighlight>
     </View>
   );
 }

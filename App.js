@@ -51,7 +51,10 @@ const App = () => {
           name="LandingScreen"
           component={LandingScreen}
           options={{
-            headerShown: false,
+            headerShown: true,
+            headerStyle: {
+              backgroundColor: '#20262B',
+            },
           }}
         />
         <Stack.Screen
@@ -59,6 +62,10 @@ const App = () => {
           component={SetPlayerScreen}
           options={{
             headerShown: true,
+
+            headerStyle: {
+              backgroundColor: '#20262B',
+            },
           }}
         />
       </Stack.Navigator>
