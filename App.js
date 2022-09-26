@@ -7,8 +7,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const Stack = createNativeStackNavigator();
 
 //pages
-import LoadingScreen from './screens/LoadingScreen';
+import SplashScreen from './screens/SplashScreen';
 import LandingScreen from './screens/LandingScreen';
+import SetPlayerScreen from './screens/SetPlayerScreen';
 
 import {
   Colors,
@@ -40,8 +41,8 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="LoadingScreen"
-          component={LoadingScreen}
+          name="SplashScreen"
+          component={SplashScreen}
           options={{
             headerShown: false,
           }}
@@ -51,6 +52,13 @@ const App = () => {
           component={LandingScreen}
           options={{
             headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="SetPlayerScreen"
+          component={SetPlayerScreen}
+          options={{
+            headerShown: true,
           }}
         />
       </Stack.Navigator>

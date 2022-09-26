@@ -39,13 +39,13 @@ export default function LoadingScreen({ navigation }) {
 
   return (
     <View style={styles.background}>
-      {/* <Pressable onPress={() => navigation.navigate('LandingScreen')}> */}
-      {/* <Image source={Hat} style={styles.img} /> */}
-      <View style={styles.textContainter}>
-        <Text style={styles.text1}>Catch</Text>
-        <Text style={styles.text2}>Liar</Text>
-      </View>
-      {/* </Pressable> */}
+      <Pressable onPress={() => navigation.navigate('LandingScreen')}>
+        {/* <Image source={Hat} style={styles.img} /> */}
+        <View style={styles.textContainter}>
+          <Text style={styles.text1}>Catch</Text>
+          <Text style={styles.text2}>Liar</Text>
+        </View>
+      </Pressable>
     </View>
   );
 }
