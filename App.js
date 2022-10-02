@@ -51,7 +51,7 @@ const App = () => {
           name="LandingScreen"
           component={LandingScreen}
           options={{
-            headerShown: true,
+            headerShown: false,
             headerStyle: {
               backgroundColor: '#20262B',
             },
@@ -61,7 +61,7 @@ const App = () => {
           name="SetPlayerScreen"
           component={SetPlayerScreen}
           options={{
-            headerShown: true,
+            headerShown: false,
 
             headerStyle: {
               backgroundColor: '#20262B',

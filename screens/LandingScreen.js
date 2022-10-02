@@ -7,6 +7,8 @@ import {
   TouchableHighlight,
 } from 'react-native';
 
+import Icons from 'react-native-vector-icons/Ionicons';
+
 export default function LandingScreen({ navigation }) {
   const styles = StyleSheet.create({
     background: {
@@ -14,18 +16,40 @@ export default function LandingScreen({ navigation }) {
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
+      height: '100%',
     },
     containerUpp: {
       alignItems: 'center',
       justifyContent: 'center',
-      height: '30%',
-      backgroundColor: 'pink',
+      height: '20%',
+      // backgroundColor: 'pink',
+      paddingTop: 70,
     },
     containerMid: {
-      alignItems: 'center',
+      height: '60%',
+      justifyContent: 'center',
+      // backgroundColor: 'blue',
+    },
+    containerInnerMid: {
+      // backgroundColor: 'blue',
+      height: '50%',
       justifyContent: 'space-between',
-      height: '40%',
-      backgroundColor: 'blue',
+      alignItems: 'center',
+      // backgroundColor: 'gold',
+    },
+    bottomBtnContainter: {
+      height: '20%',
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingBottom: 70,
+    },
+    midBtns: {
+      width: 290,
+      height: 46,
+      borderRadius: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: 'green',
     },
     textHeader: {
       color: 'white',
@@ -35,14 +59,7 @@ export default function LandingScreen({ navigation }) {
       color: 'white',
       fontSize: 18,
     },
-    midBtns: {
-      width: 290,
-      height: 46,
-      borderRadius: 10,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    midBtnsOnPress: '#DDDDDD',
+    midBtnsOnPress: '#88AEB6',
     bottomBtn: {
       backgroundColor: '#42595F',
       width: 290,
@@ -55,42 +72,42 @@ export default function LandingScreen({ navigation }) {
   return (
     <View style={styles.background}>
       <View style={styles.containerUpp}>
-        <TouchableHighlight
-          underlayColor={styles.midBtnsOnPress}
-          style={styles.midBtns}
-          onPress={() => console.log('hi')}>
-          <Text style={styles.textHeader}>Welcome</Text>
-        </TouchableHighlight>
+        <Text style={styles.textHeader}>Welcome</Text>
+        <Icons name={'ios-information-circle'} size={25} color={'blue'} />
       </View>
 
       <View style={styles.containerMid}>
-        <TouchableHighlight
-          underlayColor={styles.midBtnsOnPress}
-          style={styles.midBtns}
-          onPress={() => console.log('hi')}>
-          <Text style={styles.plainText}>How to play</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-          underlayColor={styles.midBtnsOnPress}
-          style={styles.midBtns}
-          onPress={() => console.log('hi')}>
-          <Text style={styles.plainText}>Patch Note</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-          underlayColor={styles.midBtnsOnPress}
-          style={styles.midBtns}
-          onPress={() => console.log('hi')}>
-          <Text style={styles.plainText}>Settings</Text>
-        </TouchableHighlight>
+        <View style={styles.containerInnerMid}>
+          <TouchableHighlight
+            underlayColor={styles.midBtnsOnPress}
+            style={styles.midBtns}
+            onPress={() => console.log('')}>
+            <Text style={styles.plainText}>How to play</Text>
+          </TouchableHighlight>
+          <TouchableHighlight
+            underlayColor={styles.midBtnsOnPress}
+            style={styles.midBtns}
+            onPress={() => console.log('')}>
+            <Text style={styles.plainText}>Patch Note</Text>
+          </TouchableHighlight>
+          <TouchableHighlight
+            underlayColor={styles.midBtnsOnPress}
+            style={styles.midBtns}
+            onPress={() => console.log('')}>
+            <Text style={styles.plainText}>Settings</Text>
+          </TouchableHighlight>
+        </View>
       </View>
 
-      <TouchableHighlight
-        // onPress={() => navigation.navigate('SetPlayerScreen')}
-        underlayColor={styles.midBtnsOnPress}
-        onPress={() => console.log('hi')}
-        style={styles.bottomBtn}>
-        <Text style={styles.plainText}>Play</Text>
-      </TouchableHighlight>
+      <View style={styles.bottomBtnContainter}>
+        <TouchableHighlight
+          // onPress={() => navigation.navigate('SetPlayerScreen')}
+          underlayColor={styles.midBtnsOnPress}
+          onPress={() => console.log('hi')}
+          style={styles.bottomBtn}>
+          <Text style={styles.plainText}>Play</Text>
+        </TouchableHighlight>
+      </View>
     </View>
   );
 }
