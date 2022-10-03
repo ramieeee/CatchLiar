@@ -20,7 +20,6 @@ export default function LandingScreen({ navigation }) {
       justifyContent: 'center',
       height: '20%',
       // backgroundColor: 'pink',
-      paddingTop: 70,
     },
     containerMid: {
       height: '60%',
