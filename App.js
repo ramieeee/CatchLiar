@@ -9,7 +9,7 @@ const Stack = createNativeStackNavigator();
 //pages
 import SplashScreen from './screens/SplashScreen';
 import LandingScreen from './screens/LandingScreen';
-import SetPlayerScreen from './screens/SetPlayerScreen';
+import SetPlayersScreen from './screens/SetPlayersScreen';
 
 import {
   Colors,
@@ -58,8 +58,8 @@ const App = () => {
           }}
         />
         <Stack.Screen
-          name="SetPlayerScreen"
-          component={SetPlayerScreen}
+          name="SetPlayersScreen"
+          component={SetPlayersScreen}
           options={{
             headerShown: false,
 

@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faMugSaucer } from '@fortawesome/free-solid-svg-icons/faMugSaucer';
 import { faGamepad } from '@fortawesome/free-solid-svg-icons/faGamepad';
 import { faMessage } from '@fortawesome/free-solid-svg-icons/faMessage';
 import { faWrench } from '@fortawesome/free-solid-svg-icons/faWrench';
@@ -69,7 +68,7 @@ export default function LandingScreen({ navigation }) {
       color: 'white',
       fontSize: 18,
     },
-    midBtnsOnPress: '#88AEB6',
+    btnsOnPress: '#88AEB6',
     bottomBtn: {
       backgroundColor: '#42595F',
       width: 290,
@@ -89,18 +88,18 @@ export default function LandingScreen({ navigation }) {
         <View style={styles.containerInnerMid}>
           {/* how to play */}
           <TouchableHighlight
-            underlayColor={styles.midBtnsOnPress}
+            underlayColor={styles.btnsOnPress}
             style={styles.midBtns}
             onPress={() => console.log('')}>
             <View style={styles.midBtnsInnerContainer}>
               <Text style={styles.plainText}>How to play</Text>
-              <FontAwesomeIcon icon={faGamepad} color="white" size="20px" />
+              <FontAwesomeIcon icon={faGamepad} color="white" size={20} />
             </View>
           </TouchableHighlight>
 
           {/* patch note */}
           <TouchableHighlight
-            underlayColor={styles.midBtnsOnPress}
+            underlayColor={styles.btnsOnPress}
             style={styles.midBtns}
             onPress={() => console.log('')}>
             <View style={styles.midBtnsInnerContainer}>
@@ -111,7 +110,7 @@ export default function LandingScreen({ navigation }) {
 
           {/* settings */}
           <TouchableHighlight
-            underlayColor={styles.midBtnsOnPress}
+            underlayColor={styles.btnsOnPress}
             style={styles.midBtns}
             onPress={() => console.log('')}>
             <View style={styles.midBtnsInnerContainer}>
@@ -124,9 +123,8 @@ export default function LandingScreen({ navigation }) {
 
       <View style={styles.bottomBtnContainter}>
         <TouchableHighlight
-          // onPress={() => navigation.navigate('SetPlayerScreen')}
-          underlayColor={styles.midBtnsOnPress}
-          onPress={() => console.log('hi')}
+          underlayColor={styles.btnsOnPress}
+          onPress={() => navigation.navigate('SetPlayersScreen')}
           style={styles.bottomBtn}>
           <Text style={styles.plainText}>Play</Text>
         </TouchableHighlight>
