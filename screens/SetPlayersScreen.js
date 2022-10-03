@@ -1,19 +1,14 @@
-import React, { useEffect } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Pressable,
-  TouchableHighlight,
-} from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faMugSaucer } from '@fortawesome/free-solid-svg-icons/faMugSaucer';
-import { faGamepad } from '@fortawesome/free-solid-svg-icons/faGamepad';
-import { faMessage } from '@fortawesome/free-solid-svg-icons/faMessage';
-import { faWrench } from '@fortawesome/free-solid-svg-icons/faWrench';
+import { Picker } from '@react-native-picker/picker';
 
-export default function LandingScreen({ navigation }) {
+export default function SetPlayersScreen({ navigation }) {
+  const [selectedPlayers, setSelectedPlayers] = useState();
+  const values = [
+    3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+  ];
+
   const styles = StyleSheet.create({
     background: {
       backgroundColor: '#20262B',
@@ -30,13 +25,12 @@ export default function LandingScreen({ navigation }) {
     },
     containerMid: {
       height: '60%',
+      flexDirection: 'row',
       justifyContent: 'center',
-    },
-    containerInnerMid: {
-      height: '50%',
-      justifyContent: 'space-between',
       alignItems: 'center',
+      // backgroundColor: 'pink',
     },
+
     bottomBtnContainter: {
       height: '20%',
       alignItems: 'center',
@@ -68,13 +62,41 @@ export default function LandingScreen({ navigation }) {
         <Text style={styles.textHeader}>Set Number of Players</Text>
       </View>
 
-      <View style={styles.containerMid}></View>
+      <View style={styles.containerMid}>
+        <View>
+          <Text style={styles.plainText}>Players</Text>
+        </View>
+        <View>
+          <Picker
+            style={{
+              height: '100%',
+              width: 200,
+              // backgroundColor: 'grey',
+              dropdownIconColor: 'white',
+              justifyContent: 'center',
+            }}
+            selectedValue={selectedPlayers}
+            onValueChange={(itemValue, itemIndex) =>
+              setSelectedPlayers(itemValue)
+            }>
+            {values.map(value => {
+              return (
+                <Picker.Item
+                  label={value.toString()}
+                  value={value}
+                  color="white"
+                />
+              );
+            })}
+          </Picker>
+        </View>
+      </View>
 
       <View style={styles.bottomBtnContainter}>
         <TouchableHighlight
           // onPress={() => navigation.navigate('SetPlayerScreen')}
           underlayColor={styles.btnsOnPress}
-          onPress={() => console.log('hi')}
+          onPress={() => console.log(selectedPlayers)}
           style={styles.bottomBtn}>
           <Text style={styles.plainText}>Next</Text>
         </TouchableHighlight>

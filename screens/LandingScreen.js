@@ -1,11 +1,5 @@
-import React, { useEffect } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Pressable,
-  TouchableHighlight,
-} from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faGamepad } from '@fortawesome/free-solid-svg-icons/faGamepad';
