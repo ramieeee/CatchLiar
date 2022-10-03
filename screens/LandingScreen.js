@@ -7,7 +7,11 @@ import {
   TouchableHighlight,
 } from 'react-native';
 
-import Icons from 'react-native-vector-icons/Ionicons';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faMugSaucer } from '@fortawesome/free-solid-svg-icons/faMugSaucer';
+import { faGamepad } from '@fortawesome/free-solid-svg-icons/faGamepad';
+import { faMessage } from '@fortawesome/free-solid-svg-icons/faMessage';
+import { faWrench } from '@fortawesome/free-solid-svg-icons/faWrench';
 
 export default function LandingScreen({ navigation }) {
   const styles = StyleSheet.create({
@@ -49,7 +53,13 @@ export default function LandingScreen({ navigation }) {
       borderRadius: 10,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: 'green',
+      // backgroundColor: 'green',
+    },
+    midBtnsInnerContainer: {
+      width: '80%',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
     },
     textHeader: {
       color: 'white',
@@ -73,28 +83,41 @@ export default function LandingScreen({ navigation }) {
     <View style={styles.background}>
       <View style={styles.containerUpp}>
         <Text style={styles.textHeader}>Welcome</Text>
-        <Icons name={'ios-information-circle'} size={25} color={'blue'} />
       </View>
 
       <View style={styles.containerMid}>
         <View style={styles.containerInnerMid}>
+          {/* how to play */}
           <TouchableHighlight
             underlayColor={styles.midBtnsOnPress}
             style={styles.midBtns}
             onPress={() => console.log('')}>
-            <Text style={styles.plainText}>How to play</Text>
+            <View style={styles.midBtnsInnerContainer}>
+              <Text style={styles.plainText}>How to play</Text>
+              <FontAwesomeIcon icon={faGamepad} color="white" size="20px" />
+            </View>
           </TouchableHighlight>
+
+          {/* patch note */}
           <TouchableHighlight
             underlayColor={styles.midBtnsOnPress}
             style={styles.midBtns}
             onPress={() => console.log('')}>
-            <Text style={styles.plainText}>Patch Note</Text>
+            <View style={styles.midBtnsInnerContainer}>
+              <Text style={styles.plainText}>Patch Note</Text>
+              <FontAwesomeIcon icon={faMessage} color="white" />
+            </View>
           </TouchableHighlight>
+
+          {/* settings */}
           <TouchableHighlight
             underlayColor={styles.midBtnsOnPress}
             style={styles.midBtns}
             onPress={() => console.log('')}>
-            <Text style={styles.plainText}>Settings</Text>
+            <View style={styles.midBtnsInnerContainer}>
+              <Text style={styles.plainText}>Settings</Text>
+              <FontAwesomeIcon icon={faWrench} color="white" />
+            </View>
           </TouchableHighlight>
         </View>
       </View>
