@@ -9,8 +9,6 @@ import {
 import { Picker } from '@react-native-picker/picker';
 
 // Icons
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faBuilding } from '@fortawesome/free-solid-svg-icons/faBuilding';
 import HouseIcon from '../assets/HouseIcon';
 import GoBackIcon from '../assets/GoBackIcon';
 
@@ -118,7 +116,6 @@ export default function SetPlayersScreen({ navigation }) {
             style={{
               height: '100%',
               width: 200,
-              // backgroundColor: 'grey',
               dropdownIconColor: 'white',
               justifyContent: 'center',
             }}
@@ -132,6 +129,7 @@ export default function SetPlayersScreen({ navigation }) {
                   label={value.toString()}
                   value={value}
                   color="white"
+                  key={value}
                 />
               );
             })}
