@@ -13,7 +13,7 @@ import HouseIcon from '../assets/HouseIcon';
 import GoBackIcon from '../assets/GoBackIcon';
 
 export default function SetPlayersScreen({ navigation }) {
-  const [selectedPlayers, setSelectedPlayers] = useState();
+  const [selectedPlayers, setSelectedPlayers] = useState(3);
   const values = [
     3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
   ];
@@ -29,15 +29,15 @@ export default function SetPlayersScreen({ navigation }) {
     containerUpp: {
       alignItems: 'center',
       justifyContent: 'center',
-      height: '20%',
+      height: '10%',
       width: '100%',
     },
     containerTop: {
+      height: '10%',
       width: '90%',
+      paddingTop: 50,
       flexDirection: 'row',
-      // backgroundColor: 'pink',
       justifyContent: 'space-between',
-      paddingBottom: 20,
     },
     containerMid: {
       height: '60%',
@@ -89,22 +89,20 @@ export default function SetPlayersScreen({ navigation }) {
   });
   return (
     <View style={styles.background}>
+      <View style={styles.containerTop}>
+        <Pressable onPress={() => navigation.navigate('LandingScreen')}>
+          <GoBackIcon />
+        </Pressable>
+        <View style={styles.textContainter}>
+          <Text style={styles.text1}>Catch</Text>
+          <Text style={styles.text2}>Liar</Text>
+        </View>
+        <Pressable onPress={() => navigation.navigate('LandingScreen')}>
+          <HouseIcon />
+        </Pressable>
+      </View>
       <View style={styles.containerUpp}>
-        <View style={styles.containerTop}>
-          <Pressable onPress={() => navigation.navigate('LandingScreen')}>
-            <GoBackIcon />
-          </Pressable>
-          <View style={styles.textContainter}>
-            <Text style={styles.text1}>Catch</Text>
-            <Text style={styles.text2}>Liar</Text>
-          </View>
-          <Pressable onPress={() => navigation.navigate('LandingScreen')}>
-            <HouseIcon />
-          </Pressable>
-        </View>
-        <View>
-          <Text style={styles.textHeader}>Set Number of Players</Text>
-        </View>
+        <Text style={styles.textHeader}>Set Number of Players</Text>
       </View>
 
       <View style={styles.containerMid}>
@@ -139,9 +137,12 @@ export default function SetPlayersScreen({ navigation }) {
 
       <View style={styles.bottomBtnContainter}>
         <TouchableHighlight
-          // onPress={() => navigation.navigate('SetPlayerScreen')}
+          onPress={() =>
+            navigation.navigate('SetLiarsScreen', {
+              selectedPlayers: selectedPlayers,
+            })
+          }
           underlayColor={styles.btnsOnPress}
-          onPress={() => console.log(selectedPlayers)}
           style={styles.bottomBtn}>
           <Text style={styles.plainText}>Next</Text>
         </TouchableHighlight>
