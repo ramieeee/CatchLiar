@@ -13,7 +13,7 @@ import HouseIcon from '../assets/HouseIcon';
 import GoBackIcon from '../assets/GoBackIcon';
 
 export default function SetLiarsScreen({ navigation, route }) {
-  const [selectedLiars, setSelectedLiars] = useState();
+  const [selectedLiars, setSelectedLiars] = useState(1);
 
   //   다음에 할때 밸류 정하는 알고리즘 정할 것. 플레이어 수에 따라서 벨류를 넣어야함
   const values = [
@@ -21,7 +21,6 @@ export default function SetLiarsScreen({ navigation, route }) {
   ];
 
   const [player, setPlayer] = useState(route.params.selectedPlayers);
-  const [liarNum, setLiarNum] = useState(1);
 
   const styles = StyleSheet.create({
     background: {
@@ -142,9 +141,11 @@ export default function SetLiarsScreen({ navigation, route }) {
 
       <View style={styles.bottomBtnContainter}>
         <TouchableHighlight
-          onPress={
-            (() => navigation.navigate('SetPlayerScreen'),
-            { playerNum: route.params.selectedPlayers, liarNum: liarNum })
+          onPress={() =>
+            navigation.navigate('SetTopicScreen', {
+              playerNum: route.params.selectedPlayers,
+              liarNum: selectedLiars,
+            })
           }
           underlayColor={styles.btnsOnPress}
           style={styles.bottomBtn}>

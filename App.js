@@ -11,6 +11,7 @@ import SplashScreen from './screens/SplashScreen';
 import LandingScreen from './screens/LandingScreen';
 import SetPlayersScreen from './screens/SetPlayersScreen';
 import SetLiarsScreen from './screens/SetLiarsScreen';
+import SetTopicScreen from './screens/SetTopicScreen';
 
 const styles = StyleSheet.create({
   view: {
@@ -63,6 +64,16 @@ const App = () => {
         <Stack.Screen
           name="SetLiarsScreen"
           component={SetLiarsScreen}
+          options={{
+            headerShown: false,
+            headerStyle: {
+              backgroundColor: '#20262B',
+            },
+          }}
+        />
+        <Stack.Screen
+          name="SetTopicScreen"
+          component={SetTopicScreen}
           options={{
             headerShown: false,
             headerStyle: {
