@@ -64,4 +64,4 @@ buck-out/
 /__tests__/
 *.swp
 /android/
-
+/jsonData/
