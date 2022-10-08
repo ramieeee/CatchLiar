@@ -11,3 +11,10 @@ export const setLiar = liarNum => {
     liarNum: liarNum,
   };
 };
+
+export const setTopic = topicId => {
+  return {
+    type: 'SET_TOPIC',
+    topicId: topicId,
+  };
+};

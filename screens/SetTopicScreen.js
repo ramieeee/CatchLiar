@@ -18,15 +18,27 @@ import topicList from '../jsonData/topicList.json';
 
 // redux
 import { useSelector, useDispatch } from 'react-redux';
+import { setTopic } from '../redux/actions/index';
 
-const Item = ({ title, id }) => (
-  <TouchableHighlight
-    onPress={() => console.log(id)}
-    underlayColor={styles.btnsOnPress}
-    style={styles.topicBtn}>
-    <Text style={styles.plainText}>{title}</Text>
-  </TouchableHighlight>
-);
+// item component
+function Item({ title, id }) {
+  const dispatch = useDispatch();
+
+  const handleTopic = topicId => {
+    dispatch(setTopic(topicId));
+  };
+
+  return (
+    <TouchableHighlight
+      onPress={() => {
+        handleTopic(id);
+      }}
+      underlayColor={styles.btnsOnPress}
+      style={styles.topicBtn}>
+      <Text style={styles.plainText}>{title}</Text>
+    </TouchableHighlight>
+  );
+}
 
 const styles = StyleSheet.create({
   background: {
