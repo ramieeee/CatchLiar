@@ -5,7 +5,6 @@ import {
   View,
   TouchableHighlight,
   Pressable,
-  ScrollView,
   FlatList,
   SafeAreaView,
 } from 'react-native';
@@ -54,8 +53,10 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     height: '80%',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-
   textHeader: {
     color: 'white',
     fontSize: 24,
@@ -82,10 +83,10 @@ const styles = StyleSheet.create({
   btnsOnPress: '#88AEB6',
   topicBtn: {
     marginVertical: 20,
-    marginHorizontal: 20,
+    marginHorizontal: 10,
     backgroundColor: '#42595F',
-    width: 140,
-    height: 80,
+    width: 160,
+    height: 100,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
@@ -94,9 +95,7 @@ const styles = StyleSheet.create({
 export default function SetLiarsScreen({ navigation }) {
   const test = useSelector(store => store.playInfo);
 
-  const renderItem = ({ item }) => (
-    <Item title={item.topic} id={item.id} style={{ width: '45%' }} />
-  );
+  const renderItem = ({ item }) => <Item title={item.topic} id={item.id} />;
 
   return (
     <View style={styles.background}>
@@ -117,7 +116,7 @@ export default function SetLiarsScreen({ navigation }) {
         <Text style={styles.textHeader}>Choose Topic</Text>
       </View>
       <View style={styles.containerMid}>
-        <SafeAreaView style={{ flex: 1, alignItems: 'center' }}>
+        <SafeAreaView>
           <FlatList
             data={topicList}
             renderItem={renderItem}
