@@ -15,7 +15,7 @@ import GoBackIcon from '../assets/GoBackIcon';
 // topic data list
 import topicList from '../jsonData/topicList';
 
-export default function SetLiarsScreen({ navigation, route }) {
+export default function SetLiarsScreen({ navigation }) {
   const styles = StyleSheet.create({
     background: {
       backgroundColor: '#20262B',
@@ -107,7 +107,7 @@ export default function SetLiarsScreen({ navigation, route }) {
 
       <View style={styles.bottomBtnContainter}>
         <TouchableHighlight
-          onPress={() => console.log(route.params)}
+          onPress={() => console.log('topic')}
           underlayColor={styles.btnsOnPress}
           style={styles.bottomBtn}>
           <Text style={styles.plainText}>Next</Text>

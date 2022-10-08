@@ -12,15 +12,23 @@ import { Picker } from '@react-native-picker/picker';
 import HouseIcon from '../assets/HouseIcon';
 import GoBackIcon from '../assets/GoBackIcon';
 
-export default function SetLiarsScreen({ navigation, route }) {
-  const [selectedLiars, setSelectedLiars] = useState(1);
+// redux
+import { useSelector, useDispatch } from 'react-redux';
+import { setLiar } from '../redux/actions/index';
 
+export default function SetLiarsScreen({ navigation }) {
   //   다음에 할때 밸류 정하는 알고리즘 정할 것. 플레이어 수에 따라서 벨류를 넣어야함
   const values = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
   ];
 
-  const [player, setPlayer] = useState(route.params.selectedPlayers);
+  const dispatch = useDispatch();
+  const liar = useSelector(store => store.playInfo.liar);
+  const test = useSelector(store => store.playInfo);
+
+  const handleLiarNumChange = liarNum => {
+    dispatch(setLiar(liarNum));
+  };
 
   const styles = StyleSheet.create({
     background: {
@@ -121,9 +129,9 @@ export default function SetLiarsScreen({ navigation, route }) {
               dropdownIconColor: 'white',
               justifyContent: 'center',
             }}
-            selectedValue={selectedLiars}
+            selectedValue={liar}
             onValueChange={(itemValue, itemIndex) =>
-              setSelectedLiars(itemValue)
+              handleLiarNumChange(itemValue)
             }>
             {values.map(value => {
               return (
@@ -141,12 +149,7 @@ export default function SetLiarsScreen({ navigation, route }) {
 
       <View style={styles.bottomBtnContainter}>
         <TouchableHighlight
-          onPress={() =>
-            navigation.navigate('SetTopicScreen', {
-              playerNum: route.params.selectedPlayers,
-              liarNum: selectedLiars,
-            })
-          }
+          onPress={() => navigation.navigate('SetTopicScreen')}
           underlayColor={styles.btnsOnPress}
           style={styles.bottomBtn}>
           <Text style={styles.plainText}>Next</Text>

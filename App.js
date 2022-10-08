@@ -13,6 +13,10 @@ import SetPlayersScreen from './screens/SetPlayersScreen';
 import SetLiarsScreen from './screens/SetLiarsScreen';
 import SetTopicScreen from './screens/SetTopicScreen';
 
+// redux
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
+
 const styles = StyleSheet.create({
   view: {
     backgroundColor: '#20262B',
@@ -32,57 +36,59 @@ const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="SplashScreen"
-          component={SplashScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="LandingScreen"
-          component={LandingScreen}
-          options={{
-            headerShown: false,
-            headerStyle: {
-              backgroundColor: '#20262B',
-            },
-          }}
-        />
-        <Stack.Screen
-          name="SetPlayersScreen"
-          component={SetPlayersScreen}
-          options={{
-            headerShown: false,
-            headerStyle: {
-              backgroundColor: '#20262B',
-            },
-          }}
-        />
-        <Stack.Screen
-          name="SetLiarsScreen"
-          component={SetLiarsScreen}
-          options={{
-            headerShown: false,
-            headerStyle: {
-              backgroundColor: '#20262B',
-            },
-          }}
-        />
-        <Stack.Screen
-          name="SetTopicScreen"
-          component={SetTopicScreen}
-          options={{
-            headerShown: false,
-            headerStyle: {
-              backgroundColor: '#20262B',
-            },
-          }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="SplashScreen"
+            component={SplashScreen}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="LandingScreen"
+            component={LandingScreen}
+            options={{
+              headerShown: false,
+              headerStyle: {
+                backgroundColor: '#20262B',
+              },
+            }}
+          />
+          <Stack.Screen
+            name="SetPlayersScreen"
+            component={SetPlayersScreen}
+            options={{
+              headerShown: false,
+              headerStyle: {
+                backgroundColor: '#20262B',
+              },
+            }}
+          />
+          <Stack.Screen
+            name="SetLiarsScreen"
+            component={SetLiarsScreen}
+            options={{
+              headerShown: false,
+              headerStyle: {
+                backgroundColor: '#20262B',
+              },
+            }}
+          />
+          <Stack.Screen
+            name="SetTopicScreen"
+            component={SetTopicScreen}
+            options={{
+              headerShown: false,
+              headerStyle: {
+                backgroundColor: '#20262B',
+              },
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 };
 

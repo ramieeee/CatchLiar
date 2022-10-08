@@ -12,11 +12,21 @@ import { Picker } from '@react-native-picker/picker';
 import HouseIcon from '../assets/HouseIcon';
 import GoBackIcon from '../assets/GoBackIcon';
 
+// redux
+import { useSelector, useDispatch } from 'react-redux';
+import { setPlayer } from '../redux/actions/index';
+
 export default function SetPlayersScreen({ navigation }) {
-  const [selectedPlayers, setSelectedPlayers] = useState(3);
   const values = [
     3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
   ];
+
+  const dispatch = useDispatch();
+  const player = useSelector(store => store.playInfo.player);
+
+  const handlePlayerNumChange = playerNum => {
+    dispatch(setPlayer(playerNum));
+  };
 
   const styles = StyleSheet.create({
     background: {
@@ -90,6 +100,9 @@ export default function SetPlayersScreen({ navigation }) {
   return (
     <View style={styles.background}>
       <View style={styles.containerTop}>
+        {/* <Pressable onPress={() => console.log(player)}>
+          <Text style={{ color: 'white' }}>console</Text>
+        </Pressable> */}
         <Pressable onPress={() => navigation.navigate('LandingScreen')}>
           <GoBackIcon />
         </Pressable>
@@ -117,9 +130,9 @@ export default function SetPlayersScreen({ navigation }) {
               dropdownIconColor: 'white',
               justifyContent: 'center',
             }}
-            selectedValue={selectedPlayers}
+            selectedValue={player}
             onValueChange={(itemValue, itemIndex) =>
-              setSelectedPlayers(itemValue)
+              handlePlayerNumChange(itemValue)
             }>
             {values.map(value => {
               return (
@@ -137,11 +150,7 @@ export default function SetPlayersScreen({ navigation }) {
 
       <View style={styles.bottomBtnContainter}>
         <TouchableHighlight
-          onPress={() =>
-            navigation.navigate('SetLiarsScreen', {
-              selectedPlayers: selectedPlayers,
-            })
-          }
+          onPress={() => navigation.navigate('SetLiarsScreen')}
           underlayColor={styles.btnsOnPress}
           style={styles.bottomBtn}>
           <Text style={styles.plainText}>Next</Text>
