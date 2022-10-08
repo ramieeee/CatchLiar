@@ -88,7 +88,7 @@ export default function SetLiarsScreen({ navigation }) {
   return (
     <View style={styles.background}>
       <View style={styles.containerTop}>
-        <Pressable onPress={() => navigation.navigate('SetPlayersScreen')}>
+        <Pressable onPress={() => navigation.navigate('SetLiarsScreen')}>
           <GoBackIcon />
         </Pressable>
         <View style={styles.textContainter}>

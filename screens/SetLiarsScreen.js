@@ -17,14 +17,22 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setLiar } from '../redux/actions/index';
 
 export default function SetLiarsScreen({ navigation }) {
-  //   다음에 할때 밸류 정하는 알고리즘 정할 것. 플레이어 수에 따라서 벨류를 넣어야함
-  const values = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-  ];
+  const values = [];
 
   const dispatch = useDispatch();
+  const player = useSelector(store => store.playInfo.player);
+
+  if (player === 3) {
+    values.push(1);
+  } else if (player > 3) {
+    for (let i = 1; i < player; i++) {
+      values.push(i);
+    }
+  } else {
+    // do nothing
+  }
+
   const liar = useSelector(store => store.playInfo.liar);
-  const test = useSelector(store => store.playInfo);
 
   const handleLiarNumChange = liarNum => {
     dispatch(setLiar(liarNum));
