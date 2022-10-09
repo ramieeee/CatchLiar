@@ -12,6 +12,7 @@ import LandingScreen from './screens/LandingScreen';
 import SetPlayersScreen from './screens/SetPlayersScreen';
 import SetLiarsScreen from './screens/SetLiarsScreen';
 import SetTopicScreen from './screens/SetTopicScreen';
+import GameStartScreen from './screens/GameStartScreen';
 
 // redux
 import { Provider } from 'react-redux';
@@ -79,6 +80,16 @@ const App = () => {
           <Stack.Screen
             name="SetTopicScreen"
             component={SetTopicScreen}
+            options={{
+              headerShown: false,
+              headerStyle: {
+                backgroundColor: '#20262B',
+              },
+            }}
+          />
+          <Stack.Screen
+            name="GameStartScreen"
+            component={GameStartScreen}
             options={{
               headerShown: false,
               headerStyle: {

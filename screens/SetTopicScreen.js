@@ -20,26 +20,6 @@ import topicList from '../jsonData/topicList.json';
 import { useSelector, useDispatch } from 'react-redux';
 import { setTopic } from '../redux/actions/index';
 
-// item component
-function Item({ title, id }) {
-  const dispatch = useDispatch();
-
-  const handleTopic = topicId => {
-    dispatch(setTopic(topicId));
-  };
-
-  return (
-    <TouchableHighlight
-      onPress={() => {
-        handleTopic(id);
-      }}
-      underlayColor={styles.btnsOnPress}
-      style={styles.topicBtn}>
-      <Text style={styles.plainText}>{title}</Text>
-    </TouchableHighlight>
-  );
-}
-
 const styles = StyleSheet.create({
   background: {
     backgroundColor: '#20262B',
@@ -107,7 +87,9 @@ const styles = StyleSheet.create({
 export default function SetLiarsScreen({ navigation }) {
   const test = useSelector(store => store.playInfo);
 
-  const renderItem = ({ item }) => <Item title={item.topic} id={item.id} />;
+  const renderItem = ({ item }) => (
+    <Item navigation={navigation} title={item.topic} id={item.topic} />
+  );
 
   return (
     <View style={styles.background}>
@@ -138,5 +120,26 @@ export default function SetLiarsScreen({ navigation }) {
         </SafeAreaView>
       </View>
     </View>
+  );
+}
+
+// item component
+function Item({ navigation, title, id }) {
+  const dispatch = useDispatch();
+
+  const handleTopic = topicId => {
+    dispatch(setTopic(topicId));
+  };
+
+  return (
+    <TouchableHighlight
+      onPress={() => {
+        handleTopic(id);
+        navigation.navigate('GameStartScreen');
+      }}
+      underlayColor={styles.btnsOnPress}
+      style={styles.topicBtn}>
+      <Text style={styles.plainText}>{title}</Text>
+    </TouchableHighlight>
   );
 }
