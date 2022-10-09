@@ -35,8 +35,14 @@ export default function GameStartScreen({ navigation }) {
     },
     containerMid: {
       height: '80%',
-      flexDirection: 'row',
       justifyContent: 'center',
+      alignItems: 'center',
+      paddingBottom: 40,
+    },
+    containerMidInner: {
+      height: '60%',
+
+      justifyContent: 'space-between',
       alignItems: 'center',
     },
 
@@ -62,16 +68,35 @@ export default function GameStartScreen({ navigation }) {
       color: 'red',
       fontSize: 18,
     },
-    btnsOnPress: '#88AEB6',
+    btnsOnPress: '#E47878',
     btn: {
-      backgroundColor: '#42595F',
-      width: 290,
-      height: 46,
+      backgroundColor: '#C54A4A',
+      width: 270,
+      height: 210,
       borderRadius: 10,
       alignItems: 'center',
       justifyContent: 'center',
     },
+    btnInner: {
+      height: '50%',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
   });
+
+  onDoublePress = () => {
+    const time = new Date().getTime();
+    const delta = time - this.lastPress;
+
+    const DOUBLE_PRESS_DELAY = 400;
+    if (delta < DOUBLE_PRESS_DELAY) {
+      console.log('success');
+    } else {
+      // do nothing
+    }
+    this.lastPress = time;
+  };
+
   return (
     <View style={styles.background}>
       <View style={styles.containerTop}>
@@ -87,21 +112,30 @@ export default function GameStartScreen({ navigation }) {
         </Pressable>
       </View>
       <View style={styles.containerUpp}>
-        <Text style={styles.textHeader}>Set Number of Liars</Text>
+        <Text style={styles.textHeader}>player count</Text>
       </View>
 
       <View style={styles.containerMid}>
-        <Text>mid</Text>
+        <View style={styles.containerMidInner}>
+          <View>
+            <Text style={styles.plainText}>Double Tap the Reveal button</Text>
+            <Text style={styles.plainText}>if you are the 1st player</Text>
+          </View>
+          <View>
+            <TouchableHighlight
+              onPress={() => {
+                onDoublePress();
+              }}
+              underlayColor={styles.btnsOnPress}
+              style={styles.btn}>
+              <View style={styles.btnInner}>
+                <Text style={styles.plainText}>Reveal</Text>
+                <Text style={styles.plainText}>Liar or not?</Text>
+              </View>
+            </TouchableHighlight>
+          </View>
+        </View>
       </View>
-
-      {/* <View style={styles.bottomBtnContainter}>
-        <TouchableHighlight
-          onPress={() => navigation.navigate('SetTopicScreen')}
-          underlayColor={styles.btnsOnPress}
-          style={styles.bottomBtn}>
-          <Text style={styles.plainText}>Next</Text>
-        </TouchableHighlight>
-      </View> */}
     </View>
   );
 }

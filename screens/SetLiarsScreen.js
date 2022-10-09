@@ -22,14 +22,8 @@ export default function SetLiarsScreen({ navigation }) {
   const dispatch = useDispatch();
   const player = useSelector(store => store.playInfo.player);
 
-  if (player === 3) {
-    values.push(1);
-  } else if (player > 3) {
-    for (let i = 1; i < player; i++) {
-      values.push(i);
-    }
-  } else {
-    // do nothing
+  for (let i = 1; i < player; i++) {
+    values.push(i);
   }
 
   const liar = useSelector(store => store.playInfo.liar);
