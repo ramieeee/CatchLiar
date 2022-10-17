@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   StyleSheet,
   Text,
   View,
   TouchableHighlight,
   Pressable,
+  Animated,
 } from 'react-native';
 
 // Icons
 import HouseIcon from '../assets/HouseIcon';
 import GoBackIcon from '../assets/GoBackIcon';
+import { transform } from '@babel/core';
 
 export default function GameStartScreen({ navigation }) {
   const styles = StyleSheet.create({
@@ -37,11 +39,9 @@ export default function GameStartScreen({ navigation }) {
       height: '80%',
       justifyContent: 'center',
       alignItems: 'center',
-      paddingBottom: 40,
     },
     containerMidInner: {
       height: '60%',
-
       justifyContent: 'space-between',
       alignItems: 'center',
     },
@@ -90,11 +90,115 @@ export default function GameStartScreen({ navigation }) {
 
     const DOUBLE_PRESS_DELAY = 400;
     if (delta < DOUBLE_PRESS_DELAY) {
-      console.log('success');
+      doubleClickAnimation();
     } else {
       // do nothing
     }
     this.lastPress = time;
+  };
+
+  // fading Game Start
+  const textFade = useRef(new Animated.Value(1)).current;
+  const btnAnimationY = useRef(new Animated.Value(1)).current;
+  const btnScaleX = useRef(new Animated.Value(1)).current;
+  const btnScaleY = useRef(new Animated.Value(1)).current;
+
+  const fadeIn = () => {
+    // Will change textFade value to 1 in 5 seconds
+    Animated.timing(textFade, {
+      toValue: 1,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const fadeOut = () => {
+    // Will change textFade value to 0 in 3 seconds
+    Animated.timing(textFade, {
+      toValue: 0,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  // btn animation
+  const moveY = () => {
+    Animated.timing(btnAnimationY, {
+      toValue: -100,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const changeSizeToSmallX = () => {
+    Animated.timing(btnScaleX, {
+      toValue: 0.8,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const changeSizeToSmallY = () => {
+    Animated.timing(btnScaleY, {
+      toValue: 0.6,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const changeSizeToLargeX = () => {
+    Animated.timing(btnScaleX, {
+      toValue: 1,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const changeSizeToLargeY = () => {
+    Animated.timing(btnScaleY, {
+      toValue: 0.8,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const doubleClickAnimation = () => {
+    Animated.sequence([
+      Animated.timing(textFade, {
+        toValue: 0,
+        duration: 200,
+        useNativeDriver: true,
+      }),
+      Animated.parallel([
+        Animated.timing(btnScaleX, {
+          toValue: 0.6,
+          duration: 200,
+          useNativeDriver: true,
+        }),
+        Animated.timing(btnScaleY, {
+          toValue: 0.4,
+          duration: 200,
+          useNativeDriver: true,
+        }),
+      ]),
+      Animated.parallel([
+        Animated.timing(btnAnimationY, {
+          toValue: -200,
+          duration: 200,
+          useNativeDriver: true,
+        }),
+        Animated.timing(btnScaleX, {
+          toValue: 0.8,
+          duration: 200,
+          useNativeDriver: true,
+        }),
+        Animated.timing(btnScaleY, {
+          toValue: 0.6,
+          duration: 200,
+          useNativeDriver: true,
+        }),
+      ]),
+    ]).start();
   };
 
   return (
@@ -115,8 +219,51 @@ export default function GameStartScreen({ navigation }) {
         <Text style={styles.textHeader}>player count</Text>
       </View>
 
+      {/* Game Start */}
       <View style={styles.containerMid}>
         <View style={styles.containerMidInner}>
+          <Animated.View
+            style={[
+              styles.fadingContainer,
+              {
+                opacity: textFade,
+              },
+            ]}>
+            <Text style={styles.plainText}>Double Tap the Reveal button</Text>
+            <Text style={styles.plainText}>if you are the 1st player</Text>
+          </Animated.View>
+
+          <View>
+            {/* btn */}
+            <Animated.View
+              style={[
+                {
+                  transform: [
+                    { translateY: btnAnimationY },
+                    { scaleX: btnScaleX },
+                    { scaleY: btnScaleY },
+                  ],
+                },
+              ]}>
+              <TouchableHighlight
+                onPress={() => {
+                  onDoublePress();
+                }}
+                underlayColor={styles.btnsOnPress}
+                style={styles.btn}>
+                <View>
+                  <Text style={styles.plainText}>Reveal</Text>
+                  <Text style={styles.plainText}>Liar or not?</Text>
+                </View>
+              </TouchableHighlight>
+            </Animated.View>
+          </View>
+        </View>
+      </View>
+      {/* Game Start */}
+
+      {/* reveal */}
+      {/* <View style={styles.containerMidInner}>
           <View>
             <Text style={styles.plainText}>Double Tap the Reveal button</Text>
             <Text style={styles.plainText}>if you are the 1st player</Text>
@@ -134,8 +281,20 @@ export default function GameStartScreen({ navigation }) {
               </View>
             </TouchableHighlight>
           </View>
-        </View>
-      </View>
+        </View> */}
+      {/* reveal */}
     </View>
   );
 }
+
+// <Animated.View
+//                 style={
+//                   (styles.btnInner,
+//                   {
+//                     opacity: textFade,
+//                     transform: [{ translateY: btnAnimationY }],
+//                   })
+//                 }>
+//                 <Text style={styles.plainText}>Reveal</Text>
+//                 <Text style={styles.plainText}>Liar or not?</Text>
+//               </Animated.View>
