@@ -11,7 +11,6 @@ import {
 // Icons
 import HouseIcon from '../assets/HouseIcon';
 import GoBackIcon from '../assets/GoBackIcon';
-import { transform } from '@babel/core';
 
 export default function GameStartScreen({ navigation }) {
   const styles = StyleSheet.create({
@@ -98,73 +97,18 @@ export default function GameStartScreen({ navigation }) {
   };
 
   // fading Game Start
-  const textFade = useRef(new Animated.Value(1)).current;
+  const textFadeFirst = useRef(new Animated.Value(1)).current;
+  const textFadeSecond = useRef(new Animated.Value(0)).current;
   const btnAnimationY = useRef(new Animated.Value(1)).current;
   const btnScaleX = useRef(new Animated.Value(1)).current;
   const btnScaleY = useRef(new Animated.Value(1)).current;
-
-  const fadeIn = () => {
-    // Will change textFade value to 1 in 5 seconds
-    Animated.timing(textFade, {
-      toValue: 1,
-      duration: 300,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  const fadeOut = () => {
-    // Will change textFade value to 0 in 3 seconds
-    Animated.timing(textFade, {
-      toValue: 0,
-      duration: 300,
-      useNativeDriver: true,
-    }).start();
-  };
+  const textScale = useRef(new Animated.Value(1)).current;
 
   // btn animation
-  const moveY = () => {
-    Animated.timing(btnAnimationY, {
-      toValue: -100,
-      duration: 500,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  const changeSizeToSmallX = () => {
-    Animated.timing(btnScaleX, {
-      toValue: 0.8,
-      duration: 500,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  const changeSizeToSmallY = () => {
-    Animated.timing(btnScaleY, {
-      toValue: 0.6,
-      duration: 500,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  const changeSizeToLargeX = () => {
-    Animated.timing(btnScaleX, {
-      toValue: 1,
-      duration: 300,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  const changeSizeToLargeY = () => {
-    Animated.timing(btnScaleY, {
-      toValue: 0.8,
-      duration: 300,
-      useNativeDriver: true,
-    }).start();
-  };
-
   const doubleClickAnimation = () => {
+    setToggle(true);
     Animated.sequence([
-      Animated.timing(textFade, {
+      Animated.timing(textFadeFirst, {
         toValue: 0,
         duration: 200,
         useNativeDriver: true,
@@ -181,12 +125,12 @@ export default function GameStartScreen({ navigation }) {
           useNativeDriver: true,
         }),
       ]),
+      Animated.timing(btnAnimationY, {
+        toValue: -200,
+        duration: 200,
+        useNativeDriver: true,
+      }),
       Animated.parallel([
-        Animated.timing(btnAnimationY, {
-          toValue: -200,
-          duration: 200,
-          useNativeDriver: true,
-        }),
         Animated.timing(btnScaleX, {
           toValue: 0.8,
           duration: 200,
@@ -198,8 +142,16 @@ export default function GameStartScreen({ navigation }) {
           useNativeDriver: true,
         }),
       ]),
+      Animated.timing(textFadeSecond, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: true,
+      }),
     ]).start();
   };
+
+  const [toggle, setToggle] = useState(false);
+  const [playerCnt, setPlayerCnt] = useState(1);
 
   return (
     <View style={styles.background}>
@@ -226,7 +178,7 @@ export default function GameStartScreen({ navigation }) {
             style={[
               styles.fadingContainer,
               {
-                opacity: textFade,
+                opacity: textFadeFirst,
               },
             ]}>
             <Text style={styles.plainText}>Double Tap the Reveal button</Text>
@@ -250,11 +202,33 @@ export default function GameStartScreen({ navigation }) {
                   onDoublePress();
                 }}
                 underlayColor={styles.btnsOnPress}
-                style={styles.btn}>
-                <View>
-                  <Text style={styles.plainText}>Reveal</Text>
-                  <Text style={styles.plainText}>Liar or not?</Text>
-                </View>
+                style={styles.btn}
+                disabled={toggle}>
+                {toggle ? (
+                  <View>
+                    <Animated.Text
+                      style={[
+                        styles.plainText,
+                        {
+                          opacity: textFadeSecond,
+                          transform: [{ scale: textScale }],
+                        },
+                      ]}>
+                      Lion
+                    </Animated.Text>
+                  </View>
+                ) : (
+                  <View>
+                    <Animated.Text
+                      style={[styles.plainText, { opacity: textFadeFirst }]}>
+                      Reveal
+                    </Animated.Text>
+                    <Animated.Text
+                      style={[styles.plainText, { opacity: textFadeFirst }]}>
+                      Liar or not?
+                    </Animated.Text>
+                  </View>
+                )}
               </TouchableHighlight>
             </Animated.View>
           </View>
@@ -291,7 +265,7 @@ export default function GameStartScreen({ navigation }) {
 //                 style={
 //                   (styles.btnInner,
 //                   {
-//                     opacity: textFade,
+//                     opacity: textFadeFirst,
 //                     transform: [{ translateY: btnAnimationY }],
 //                   })
 //                 }>
