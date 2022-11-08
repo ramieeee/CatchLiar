@@ -44,7 +44,6 @@ export default function GameStartScreen({ navigation }) {
       justifyContent: 'space-between',
       alignItems: 'center',
     },
-
     textHeader: {
       color: 'white',
       fontSize: 24,
@@ -89,7 +88,7 @@ export default function GameStartScreen({ navigation }) {
 
     const DOUBLE_PRESS_DELAY = 400;
     if (delta < DOUBLE_PRESS_DELAY) {
-      doubleClickAnimation();
+      doubleClickAnimationReveal();
     } else {
       // do nothing
     }
@@ -100,13 +99,10 @@ export default function GameStartScreen({ navigation }) {
   const textFadeFirst = useRef(new Animated.Value(1)).current;
   const textFadeSecond = useRef(new Animated.Value(0)).current;
   const btnAnimationY = useRef(new Animated.Value(1)).current;
-  const btnScaleX = useRef(new Animated.Value(1)).current;
-  const btnScaleY = useRef(new Animated.Value(1)).current;
-  const textScale = useRef(new Animated.Value(1)).current;
+  const bottmBtnAnimationY = useRef(new Animated.Value(0)).current;
 
   // btn animation
-  const doubleClickAnimation = () => {
-    setToggle(true);
+  const doubleClickAnimationReveal = () => {
     Animated.sequence([
       Animated.timing(textFadeFirst, {
         toValue: 0,
@@ -114,30 +110,13 @@ export default function GameStartScreen({ navigation }) {
         useNativeDriver: true,
       }),
       Animated.parallel([
-        Animated.timing(btnScaleX, {
-          toValue: 0.6,
+        Animated.timing(btnAnimationY, {
+          toValue: -200,
           duration: 200,
           useNativeDriver: true,
         }),
-        Animated.timing(btnScaleY, {
-          toValue: 0.4,
-          duration: 200,
-          useNativeDriver: true,
-        }),
-      ]),
-      Animated.timing(btnAnimationY, {
-        toValue: -200,
-        duration: 200,
-        useNativeDriver: true,
-      }),
-      Animated.parallel([
-        Animated.timing(btnScaleX, {
-          toValue: 0.8,
-          duration: 200,
-          useNativeDriver: true,
-        }),
-        Animated.timing(btnScaleY, {
-          toValue: 0.6,
+        Animated.timing(bottmBtnAnimationY, {
+          toValue: 46,
           duration: 200,
           useNativeDriver: true,
         }),
@@ -150,7 +129,6 @@ export default function GameStartScreen({ navigation }) {
     ]).start();
   };
 
-  const [toggle, setToggle] = useState(false);
   const [playerCnt, setPlayerCnt] = useState(1);
 
   return (
@@ -174,101 +152,23 @@ export default function GameStartScreen({ navigation }) {
       {/* Game Start */}
       <View style={styles.containerMid}>
         <View style={styles.containerMidInner}>
-          <Animated.View
-            style={[
-              styles.fadingContainer,
-              {
-                opacity: textFadeFirst,
-              },
-            ]}>
-            <Text style={styles.plainText}>Double Tap the Reveal button</Text>
-            <Text style={styles.plainText}>if you are the 1st player</Text>
-          </Animated.View>
+          <Text style={styles.plainText}>Double Tap the Reveal button</Text>
+          <Text style={styles.plainText}>if you are the 1st player</Text>
 
-          <View>
-            {/* btn */}
-            <Animated.View
-              style={[
-                {
-                  transform: [
-                    { translateY: btnAnimationY },
-                    { scaleX: btnScaleX },
-                    { scaleY: btnScaleY },
-                  ],
-                },
-              ]}>
-              <TouchableHighlight
-                onPress={() => {
-                  onDoublePress();
-                }}
-                underlayColor={styles.btnsOnPress}
-                style={styles.btn}
-                disabled={toggle}>
-                {toggle ? (
-                  <View>
-                    <Animated.Text
-                      style={[
-                        styles.plainText,
-                        {
-                          opacity: textFadeSecond,
-                          transform: [{ scale: textScale }],
-                        },
-                      ]}>
-                      Lion
-                    </Animated.Text>
-                  </View>
-                ) : (
-                  <View>
-                    <Animated.Text
-                      style={[styles.plainText, { opacity: textFadeFirst }]}>
-                      Reveal
-                    </Animated.Text>
-                    <Animated.Text
-                      style={[styles.plainText, { opacity: textFadeFirst }]}>
-                      Liar or not?
-                    </Animated.Text>
-                  </View>
-                )}
-              </TouchableHighlight>
-            </Animated.View>
-          </View>
+          {/* btn */}
+          <TouchableHighlight
+            onPress={() => {
+              onDoublePress();
+            }}
+            underlayColor={styles.btnsOnPress}
+            style={styles.btn}>
+            <View>
+              <Text style={styles.plainText}>Reveal</Text>
+              <Text style={styles.plainText}>Liar or not?</Text>
+            </View>
+          </TouchableHighlight>
         </View>
       </View>
-      {/* Game Start */}
-
-      {/* reveal */}
-      {/* <View style={styles.containerMidInner}>
-          <View>
-            <Text style={styles.plainText}>Double Tap the Reveal button</Text>
-            <Text style={styles.plainText}>if you are the 1st player</Text>
-          </View>
-          <View>
-            <TouchableHighlight
-              onPress={() => {
-                onDoublePress();
-              }}
-              underlayColor={styles.btnsOnPress}
-              style={styles.btn}>
-              <View style={styles.btnInner}>
-                <Text style={styles.plainText}>Reveal</Text>
-                <Text style={styles.plainText}>Liar or not?</Text>
-              </View>
-            </TouchableHighlight>
-          </View>
-        </View> */}
-      {/* reveal */}
     </View>
   );
 }
-
-// <Animated.View
-//                 style={
-//                   (styles.btnInner,
-//                   {
-//                     opacity: textFadeFirst,
-//                     transform: [{ translateY: btnAnimationY }],
-//                   })
-//                 }>
-//                 <Text style={styles.plainText}>Reveal</Text>
-//                 <Text style={styles.plainText}>Liar or not?</Text>
-//               </Animated.View>
