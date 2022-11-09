@@ -6,46 +6,21 @@ import {
   TouchableHighlight,
   Pressable,
 } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
 
 // Icons
-import HouseIcon from '../assets/HouseIcon';
-import GoBackIcon from '../assets/GoBackIcon';
+import HouseIcon from '../../assets/HouseIcon';
+import { useSelector, useDispatch } from 'react-redux';
 
 // redux
-import { useSelector, useDispatch } from 'react-redux';
-import { setLiar } from '../redux/actions/index';
-import { setLiarIndex } from '../redux/actions/index';
+import { setPlayerCnt } from '../../redux/actions/index';
 
-export default function SetLiarsScreen({ navigation }) {
-  const values = [];
-
+export default function WordScreePlayer({ navigation }) {
   const dispatch = useDispatch();
-  const player = useSelector(store => store.playInfo.player);
-  const liar = useSelector(store => store.playInfo.liar);
+  const playerCnt = useSelector(store => store.playInfo.playerCnt);
   const liarIndex = useSelector(store => store.playInfo.liarIndex);
 
-  for (let i = 1; i < player; i++) {
-    values.push(i);
-  }
-
-  const handleLiarNumChange = liarNum => {
-    dispatch(setLiar(liarNum));
-  };
-
-  const handleLiarIndexChange = liarIndex => {
-    dispatch(setLiarIndex(liarIndex));
-  };
-
-  const chooseLiarsRandom = () => {
-    const randomLiars = [];
-    while (randomLiars.length < liar) {
-      const num = Math.floor(Math.random() * player) + 1;
-      if (!randomLiars.includes(num)) {
-        randomLiars.push(num);
-      }
-    }
-    handleLiarIndexChange(randomLiars);
+  const handlePlayerCntChange = playerCnt => {
+    dispatch(setPlayerCnt(playerCnt));
   };
 
   const styles = StyleSheet.create({
@@ -71,12 +46,27 @@ export default function SetLiarsScreen({ navigation }) {
     },
     containerMid: {
       height: '60%',
-      flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-      // backgroundColor: 'pink',
     },
-
+    midSubContainerTop: {
+      height: '80%',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    wordBox: {
+      height: 120,
+      width: 300,
+      borderRadius: 10,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#35ADB5',
+    },
+    midSubContainerBottom: {
+      height: '20%',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
     bottomBtnContainter: {
       height: '20%',
       alignItems: 'center',
@@ -92,11 +82,14 @@ export default function SetLiarsScreen({ navigation }) {
       color: 'white',
       fontSize: 18,
     },
+    theWordText: {
+      color: 'white',
+      fontSize: 30,
+    },
     textContainter: {
       width: 90,
       flexDirection: 'row',
       alignItems: 'center',
-      // backgroundColor: 'pink',
       justifyContent: 'space-between',
     },
     text1: {
@@ -120,56 +113,45 @@ export default function SetLiarsScreen({ navigation }) {
   return (
     <View style={styles.background}>
       <View style={styles.containerTop}>
-        <Pressable onPress={() => navigation.navigate('SetPlayersScreen')}>
-          <GoBackIcon />
+        <Pressable>
+          {/* view that does nothing but takes space */}
+          <View style={{ width: 20 }} />
         </Pressable>
         <View style={styles.textContainter}>
           <Text style={styles.text1}>Catch</Text>
           <Text style={styles.text2}>Liar</Text>
         </View>
-        <Pressable onPress={() => navigation.navigate('LandingScreen')}>
+        <Pressable
+          onPress={() => {
+            handlePlayerCntChange(1);
+            navigation.navigate('LandingScreen');
+          }}>
           <HouseIcon />
         </Pressable>
       </View>
       <View style={styles.containerUpp}>
-        <Text style={styles.textHeader}>Set Number of Liars</Text>
+        <Text style={styles.textHeader}>Player {playerCnt}</Text>
       </View>
 
       <View style={styles.containerMid}>
-        <View>
-          <Text style={styles.plainText}>Liars</Text>
+        <View style={styles.midSubContainerTop}>
+          <Text style={[styles.plainText, { marginBottom: 30 }]}>
+            The word is
+          </Text>
+          <View style={styles.wordBox}>
+            <Text style={styles.theWordText}>Lion</Text>
+          </View>
         </View>
-        <View>
-          <Picker
-            style={{
-              height: '100%',
-              width: 200,
-              dropdownIconColor: 'white',
-              justifyContent: 'center',
-            }}
-            selectedValue={liar}
-            onValueChange={(itemValue, itemIndex) =>
-              handleLiarNumChange(itemValue)
-            }>
-            {values.map(value => {
-              return (
-                <Picker.Item
-                  label={value.toString()}
-                  value={value}
-                  color="white"
-                  key={value}
-                />
-              );
-            })}
-          </Picker>
+        <View style={styles.midSubContainerBottom}>
+          <Text style={styles.plainText}>Press next to hide</Text>
         </View>
       </View>
 
       <View style={styles.bottomBtnContainter}>
         <TouchableHighlight
           onPress={() => {
-            chooseLiarsRandom();
-            navigation.navigate('SetTopicScreen');
+            handlePlayerCntChange(playerCnt + 1);
+            navigation.navigate('GameStartScreen');
           }}
           underlayColor={styles.btnsOnPress}
           style={styles.bottomBtn}>

@@ -5,14 +5,39 @@ import {
   View,
   TouchableHighlight,
   Pressable,
-  Animated,
 } from 'react-native';
 
 // Icons
 import HouseIcon from '../assets/HouseIcon';
 import GoBackIcon from '../assets/GoBackIcon';
 
+// redux
+import { useSelector, useDispatch } from 'react-redux';
+import { setPlayerCnt } from '../redux/actions/index';
+
 export default function GameStartScreen({ navigation }) {
+  const dispatch = useDispatch();
+  const playerCnt = useSelector(store => store.playInfo.playerCnt);
+  const liarIndex = useSelector(store => store.playInfo.liarIndex);
+
+  const handlePlayerCntChange = playerCnt => {
+    dispatch(setPlayerCnt(playerCnt));
+  };
+
+  const changePlayerCnt = () => {
+    if (playerCnt === 1) {
+      return playerCnt + 'st';
+    } else if (playerCnt === 2) {
+      return playerCnt + 'nd';
+    } else if (playerCnt === 3) {
+      return playerCnt + 'rd';
+    } else {
+      return playerCnt + 'th';
+    }
+  };
+
+  const playerCntWithLetter = changePlayerCnt();
+
   const styles = StyleSheet.create({
     background: {
       backgroundColor: '#20262B',
@@ -88,72 +113,52 @@ export default function GameStartScreen({ navigation }) {
 
     const DOUBLE_PRESS_DELAY = 400;
     if (delta < DOUBLE_PRESS_DELAY) {
-      doubleClickAnimationReveal();
+      if (liarIndex.includes(playerCnt)) {
+        navigation.navigate('WordScreenLiar');
+      } else {
+        navigation.navigate('WordScreenPlayer');
+      }
     } else {
       // do nothing
     }
     this.lastPress = time;
   };
 
-  // fading Game Start
-  const textFadeFirst = useRef(new Animated.Value(1)).current;
-  const textFadeSecond = useRef(new Animated.Value(0)).current;
-  const btnAnimationY = useRef(new Animated.Value(1)).current;
-  const bottmBtnAnimationY = useRef(new Animated.Value(0)).current;
-
-  // btn animation
-  const doubleClickAnimationReveal = () => {
-    Animated.sequence([
-      Animated.timing(textFadeFirst, {
-        toValue: 0,
-        duration: 200,
-        useNativeDriver: true,
-      }),
-      Animated.parallel([
-        Animated.timing(btnAnimationY, {
-          toValue: -200,
-          duration: 200,
-          useNativeDriver: true,
-        }),
-        Animated.timing(bottmBtnAnimationY, {
-          toValue: 46,
-          duration: 200,
-          useNativeDriver: true,
-        }),
-      ]),
-      Animated.timing(textFadeSecond, {
-        toValue: 1,
-        duration: 300,
-        useNativeDriver: true,
-      }),
-    ]).start();
-  };
-
-  const [playerCnt, setPlayerCnt] = useState(1);
-
   return (
     <View style={styles.background}>
       <View style={styles.containerTop}>
-        <Pressable onPress={() => navigation.navigate('SetTopicScreen')}>
+        <Pressable
+          onPress={() => {
+            handlePlayerCntChange(1);
+            navigation.navigate('SetTopicScreen');
+          }}>
           <GoBackIcon />
         </Pressable>
         <View style={styles.textContainter}>
           <Text style={styles.text1}>Catch</Text>
           <Text style={styles.text2}>Liar</Text>
         </View>
-        <Pressable onPress={() => navigation.navigate('LandingScreen')}>
+        <Pressable
+          onPress={() => {
+            handlePlayerCntChange(1);
+            navigation.navigate('LandingScreen');
+          }}>
           <HouseIcon />
         </Pressable>
       </View>
       <View style={styles.containerUpp}>
-        <Text style={styles.textHeader}>player count</Text>
+        <Text style={styles.textHeader}>player {playerCnt}</Text>
       </View>
 
       {/* Game Start */}
       <View style={styles.containerMid}>
         <View style={styles.containerMidInner}>
-          <Text style={styles.plainText}>Double Tap the Reveal button</Text>
-          <Text style={styles.plainText}>if you are the 1st player</Text>
+          <View>
+            <Text style={styles.plainText}>Double Tap the Reveal button</Text>
+            <Text style={styles.plainText}>
+              if you are the {playerCntWithLetter} player
+            </Text>
+          </View>
 
           {/* btn */}
           <TouchableHighlight

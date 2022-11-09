@@ -4,6 +4,8 @@ const initialState = {
   player: 3,
   liar: 1,
   topic: 1,
+  playerCnt: 1,
+  liarIndex: [],
 };
 
 export default (state = initialState, action) => {
@@ -22,6 +24,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         topic: action.topicId,
+      };
+    case 'SET_PLAYERCNT':
+      return {
+        ...state,
+        playerCnt: action.playerCnt,
+      };
+    case 'SET_LIARINDEX':
+      return {
+        ...state,
+        liarIndex: action.liarIndex,
       };
     default:
       return state;

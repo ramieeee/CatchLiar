@@ -18,3 +18,17 @@ export const setTopic = topicId => {
     topicId: topicId,
   };
 };
+
+export const setPlayerCnt = playerCnt => {
+  return {
+    type: 'SET_PLAYERCNT',
+    playerCnt: playerCnt,
+  };
+};
+
+export const setLiarIndex = liarIndex => {
+  return {
+    type: 'SET_LIARINDEX',
+    liarIndex: liarIndex,
+  };
+};

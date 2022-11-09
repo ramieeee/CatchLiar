@@ -13,6 +13,8 @@ import SetPlayersScreen from './screens/SetPlayersScreen';
 import SetLiarsScreen from './screens/SetLiarsScreen';
 import SetTopicScreen from './screens/SetTopicScreen';
 import GameStartScreen from './screens/GameStartScreen';
+import WordScreenPlayer from './screens/subScreens/WordScreenPlayer';
+import WordScreenLiar from './screens/subScreens/WordScreenLiar';
 
 // redux
 import { Provider } from 'react-redux';
@@ -90,6 +92,26 @@ const App = () => {
           <Stack.Screen
             name="GameStartScreen"
             component={GameStartScreen}
+            options={{
+              headerShown: false,
+              headerStyle: {
+                backgroundColor: '#20262B',
+              },
+            }}
+          />
+          <Stack.Screen
+            name="WordScreenPlayer"
+            component={WordScreenPlayer}
+            options={{
+              headerShown: false,
+              headerStyle: {
+                backgroundColor: '#20262B',
+              },
+            }}
+          />
+          <Stack.Screen
+            name="WordScreenLiar"
+            component={WordScreenLiar}
             options={{
               headerShown: false,
               headerStyle: {
