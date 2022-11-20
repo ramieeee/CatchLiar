@@ -22,7 +22,7 @@ export default function SetPlayersScreen({ navigation }) {
   ];
 
   const dispatch = useDispatch();
-  const player = useSelector(store => store.playInfo.player);
+  const player = useSelector(store => store.playInfo.playerNum);
 
   const handlePlayerNumChange = playerNum => {
     dispatch(setPlayer(playerNum));
@@ -76,7 +76,6 @@ export default function SetPlayersScreen({ navigation }) {
       width: 90,
       flexDirection: 'row',
       alignItems: 'center',
-      // backgroundColor: 'pink',
       justifyContent: 'space-between',
     },
     text1: {
@@ -100,9 +99,6 @@ export default function SetPlayersScreen({ navigation }) {
   return (
     <View style={styles.background}>
       <View style={styles.containerTop}>
-        {/* <Pressable onPress={() => console.log(player)}>
-          <Text style={{ color: 'white' }}>console</Text>
-        </Pressable> */}
         <Pressable onPress={() => navigation.navigate('LandingScreen')}>
           <GoBackIcon />
         </Pressable>
@@ -131,9 +127,9 @@ export default function SetPlayersScreen({ navigation }) {
               justifyContent: 'center',
             }}
             selectedValue={player}
-            onValueChange={(itemValue, itemIndex) =>
-              handlePlayerNumChange(itemValue)
-            }>
+            onValueChange={(itemValue, itemIndex) => {
+              handlePlayerNumChange(itemValue);
+            }}>
             {values.map(value => {
               return (
                 <Picker.Item

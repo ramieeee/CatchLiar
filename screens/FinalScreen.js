@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,33 +8,16 @@ import {
 } from 'react-native';
 
 // Icons
-import HouseIcon from '../../assets/HouseIcon';
-import { useSelector, useDispatch } from 'react-redux';
+import HouseIcon from '../assets/HouseIcon';
 
 // redux
-import { setPlayerCnt } from '../../redux/actions/index';
+import { useDispatch } from 'react-redux';
+import { setPlayerCnt } from '../redux/actions/index';
 
 export default function WordScreePlayer({ navigation }) {
   const dispatch = useDispatch();
-  const playerCnt = useSelector(store => store.playInfo.playerCnt);
-  const playerNum = useSelector(store => store.playInfo.playerNum);
-  const liarNum = useSelector(store => store.playInfo.liarNum);
-
   const handlePlayerCntChange = playerCnt => {
     dispatch(setPlayerCnt(playerCnt));
-  };
-
-  const handlePress = () => {
-    console.log('playercnt ' + playerCnt);
-    console.log('playernum ' + playerNum);
-    console.log('liarNum ' + liarNum);
-    if (playerCnt !== playerNum) {
-      handlePlayerCntChange(playerCnt + 1);
-      navigation.navigate('GameStartScreen');
-    } else {
-      handlePlayerCntChange(1);
-      navigation.navigate('FinalScreen');
-    }
   };
 
   const styles = StyleSheet.create({
@@ -63,31 +46,12 @@ export default function WordScreePlayer({ navigation }) {
       justifyContent: 'center',
       alignItems: 'center',
     },
-    midSubContainerTop: {
-      height: '80%',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    wordBox: {
-      height: 120,
-      width: 300,
-      borderRadius: 10,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#35ADB5',
-    },
-    midSubContainerBottom: {
-      height: '20%',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
     bottomBtnContainter: {
       height: '20%',
       alignItems: 'center',
       justifyContent: 'center',
       paddingBottom: 70,
     },
-
     textHeader: {
       color: 'white',
       fontSize: 24,
@@ -131,10 +95,7 @@ export default function WordScreePlayer({ navigation }) {
           {/* view that does nothing but takes space */}
           <View style={{ width: 20 }} />
         </Pressable>
-        <View style={styles.textContainter}>
-          <Text style={styles.text1}>Catch</Text>
-          <Text style={styles.text2}>Liar</Text>
-        </View>
+
         <Pressable
           onPress={() => {
             handlePlayerCntChange(1);
@@ -144,29 +105,25 @@ export default function WordScreePlayer({ navigation }) {
         </Pressable>
       </View>
       <View style={styles.containerUpp}>
-        <Text style={styles.textHeader}>Player {playerCnt}</Text>
+        <Text style={styles.textHeader}>Guess who?</Text>
       </View>
 
       <View style={styles.containerMid}>
-        <View style={styles.midSubContainerTop}>
-          <Text style={[styles.plainText, { marginBottom: 30 }]}>
-            The word is
-          </Text>
-          <View style={styles.wordBox}>
-            <Text style={styles.theWordText}>Lion</Text>
-          </View>
-        </View>
-        <View style={styles.midSubContainerBottom}>
-          <Text style={styles.plainText}>Press next to hide</Text>
+        <View style={styles.textContainter}>
+          <Text style={styles.text1}>Catch</Text>
+          <Text style={styles.text2}>Liar</Text>
         </View>
       </View>
 
       <View style={styles.bottomBtnContainter}>
         <TouchableHighlight
-          onPress={handlePress}
+          onPress={() => {
+            handlePlayerCntChange(1);
+            navigation.navigate('LandingScreen');
+          }}
           underlayColor={styles.btnsOnPress}
           style={styles.bottomBtn}>
-          <Text style={styles.plainText}>Next</Text>
+          <Text style={styles.plainText}>Return Home</Text>
         </TouchableHighlight>
       </View>
     </View>

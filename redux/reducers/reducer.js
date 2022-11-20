@@ -13,12 +13,12 @@ export default (state = initialState, action) => {
     case 'SET_PLAYER':
       return {
         ...state,
-        player: action.playerNum,
+        playerNum: action.playerNum,
       };
     case 'SET_LIAR':
       return {
         ...state,
-        liar: action.liarNum,
+        liarNum: action.liarNum,
       };
     case 'SET_TOPIC':
       return {

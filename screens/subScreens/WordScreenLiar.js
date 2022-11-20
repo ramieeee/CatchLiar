@@ -17,10 +17,25 @@ import { setPlayerCnt } from '../../redux/actions/index';
 export default function WordScreeLiar({ navigation }) {
   const dispatch = useDispatch();
   const playerCnt = useSelector(store => store.playInfo.playerCnt);
-  const liarIndex = useSelector(store => store.playInfo.liarIndex);
+  const playerNum = useSelector(store => store.playInfo.playerNum);
+  const liarNum = useSelector(store => store.playInfo.liarNum);
 
   const handlePlayerCntChange = playerCnt => {
     dispatch(setPlayerCnt(playerCnt));
+  };
+
+  const handlePress = () => {
+    console.log('playercnt ' + playerCnt);
+    console.log('playernum ' + playerNum);
+    console.log('liarNum ' + liarNum);
+
+    if (playerCnt !== playerNum) {
+      handlePlayerCntChange(playerCnt + 1);
+      navigation.navigate('GameStartScreen');
+    } else {
+      handlePlayerCntChange(1);
+      navigation.navigate('FinalScreen');
+    }
   };
 
   const styles = StyleSheet.create({
@@ -135,11 +150,9 @@ export default function WordScreeLiar({ navigation }) {
 
       <View style={styles.containerMid}>
         <View style={styles.midSubContainerTop}>
-          <Text style={[styles.plainText, { marginBottom: 30 }]}>
-            The word is
-          </Text>
+          <Text style={[styles.plainText, { marginBottom: 30 }]}>You are</Text>
           <View style={styles.wordBox}>
-            <Text style={styles.theWordText}>Lion</Text>
+            <Text style={styles.theWordText}>a Liar</Text>
           </View>
         </View>
         <View style={styles.midSubContainerBottom}>
@@ -149,10 +162,7 @@ export default function WordScreeLiar({ navigation }) {
 
       <View style={styles.bottomBtnContainter}>
         <TouchableHighlight
-          onPress={() => {
-            handlePlayerCntChange(playerCnt + 1);
-            navigation.navigate('GameStartScreen');
-          }}
+          onPress={handlePress}
           underlayColor={styles.btnsOnPress}
           style={styles.bottomBtn}>
           <Text style={styles.plainText}>Next</Text>

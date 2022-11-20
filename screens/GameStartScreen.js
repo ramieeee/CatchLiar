@@ -17,6 +17,7 @@ import { setPlayerCnt } from '../redux/actions/index';
 
 export default function GameStartScreen({ navigation }) {
   const dispatch = useDispatch();
+
   const playerCnt = useSelector(store => store.playInfo.playerCnt);
   const liarIndex = useSelector(store => store.playInfo.liarIndex);
 
